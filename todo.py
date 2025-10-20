@@ -66,7 +66,31 @@ class TaskBoard:
 
     #Removes a task from the dictionary list
     def remove_task(self):
-        pass
+        num_to_category = {"1": "To Do", "2": "In Progress", "3": "Done"}
+        
+        while True:
+            print("Which category is the task currently in?")
+            print("1) To Do")
+            print("2) In Progress")
+            print("3) Done")
+            print("q) Cancel Remove Task")
+
+            choice = input("Please enter 1/2/3 or q").strip().lower()
+
+            if choice == 'q':
+                print("Cancelled Deletion of Task")
+                break
+            if choice not in num_to_category:
+                print("Please enter a valid option!")
+                continue
+
+            category = num_to_category[choice]
+            break
+
+        while True:
+            
+
+
 
     #Moves a task from one list in the dictionary to another
     def move_task(self):
