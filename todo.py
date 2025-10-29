@@ -138,6 +138,10 @@ class TaskBoard:
             category = num_to_category[choice]
             break
 
+        if not tasks_in_category:
+            print(f"{category} is empty!")
+            return
+            
         tasks_in_category = self.tasks[category]
         for i, task in enumerate(tasks_in_category, start = 1):
             print(f"{i}) {task}")
@@ -152,19 +156,38 @@ class TaskBoard:
                 print("Please enter a number!")
                 continue
 
-            if not tasks_in_category:
-                print(f"{category} is empty!")
-                return
-            
             idx = int(selection) - 1
 
-            if not 0 <= idx < len(tasks_in_category):
+            if not (0 <= idx < len(tasks_in_category)):
                 print("The number you have added is invalid (out of range!)")
                 continue
+            break
 
-            moved = self.tasks[category].pop(idx)
-            self.tasks[choice] == moved
-        
+        while True:
+            print("\n Where would you like to move the task?")
+            print("1) To Do\n2) In Progress\n3)Done\nq) Cancel Move")
+
+            chocie_to = input("Enter 1/2/3 or q: ").strip.lower()
+
+            if choice == 'q':
+                print("Action cancelled")
+                return
+            if choice not in num_to_category:
+                print("Please enter a valid option!")
+                continue
+
+            to_category = num_to_category[chocie_to]
+
+            if to_category == category:
+                print("Source and destination are the same, Choose a different categroy!")
+                continue
+            break
+
+        moved = self.tasks[category].pop(idx)
+        self.tasks[to_category].append(moved)
+
+        print(f"Moved '{moved}' from '{category}' -> '{to_category}'.")
+
     #Displays the tasks in the terminal
     def view_tasks(self):
         pass
