@@ -75,11 +75,11 @@ class TaskBoard:
             print("3) Done")
             print("q) Cancel Remove Task")
 
-            choice = input("Please enter 1/2/3 or q").strip().lower()
+            choice = input("Please enter 1/2/3 or q: ").strip().lower()
 
             if choice == 'q':
                 print("Cancelled Deletion of Task")
-                break
+                return
             if choice not in num_to_category:
                 print("Please enter a valid option!")
                 continue
@@ -88,9 +88,32 @@ class TaskBoard:
             break
 
         while True:
+
+            if not self.tasks[category]:
+                print(f"No tasks foudn in {category}.")
+                return
             
+            print(f"\nCurrent tasks in {category}: ")
+            for i, t in enumerate(self.tasks[category], 1):
+                print(f"{i}. {t}")
 
+            task = input("Which task would you like to remove? ").strip()
 
+            if not task:
+                print("You must enter a task to remove!")
+                continue
+
+            if task not in self.tasks[category]:
+                print("You must remove a task that is scheduled!")
+                continue
+
+            self.tasks[category].remove(task)
+
+            again = input("Would you like to remove another task? (y/n): ").lower().strip()
+            if again not in ("y", "yes"):
+                break #Go back to "remove task" loop if anser is yes
+
+            
 
     #Moves a task from one list in the dictionary to another
     def move_task(self):
