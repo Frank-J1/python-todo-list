@@ -117,8 +117,54 @@ class TaskBoard:
 
     #Moves a task from one list in the dictionary to another
     def move_task(self):
-        pass
+        num_to_category = {"1": "To Do", "2": "In Progress", "3": "Done"}
+        
+        while True:
+            print("Which category is the task currently in?")
+            print("1) To Do")
+            print("2) In Progress")
+            print("3) Done")
+            print("q) Cancel Remove Task")
 
+            choice = input("Please enter 1/2/3 or q: ").strip().lower()
+
+            if choice == 'q':
+                print("Cancelled Deletion of Task")
+                return
+            if choice not in num_to_category:
+                print("Please enter a valid option!")
+                continue
+
+            category = num_to_category[choice]
+            break
+
+        tasks_in_category = self.tasks[category]
+        for i, task in enumerate(tasks_in_category, start = 1):
+            print(f"{i}) {task}")
+
+        while True:
+
+            selection = input("Please enter a task number (or 'q' to cancel): ").strip().lower()
+            if selection == 'q':
+                print("Action canceled!")
+                return
+            if not selection.isdigit():
+                print("Please enter a number!")
+                continue
+
+            if not tasks_in_category:
+                print(f"{category} is empty!")
+                return
+            
+            idx = int(selection) - 1
+
+            if not 0 <= idx < len(tasks_in_category):
+                print("The number you have added is invalid (out of range!)")
+                continue
+
+            moved = self.tasks[category].pop(idx)
+            self.tasks[choice] == moved
+        
     #Displays the tasks in the terminal
     def view_tasks(self):
         pass
