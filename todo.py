@@ -190,4 +190,39 @@ class TaskBoard:
 
     #Displays the tasks in the terminal
     def view_tasks(self):
-        pass
+        num_to_category = {"1": "To Do", "2": "In Progress", "3": "Done"}
+
+        while True:
+            print("Which List would you like to view?")
+            print("1) To Do")
+            print("2) In Progress")
+            print("3) Done")
+            print("q) Cancel Remove Task")
+
+            choice = input ("Please enter 1/2/3 or 'q' to cancel").strip().lower()
+
+            if choice == 'q':
+                print("Action cancelled!")
+                return
+            if not choice.isdigit() :
+                print("Please enter a valid number")
+                continue
+
+            if choice not in num_to_category:
+                print("Please enter a valid option!")
+                continue
+            break
+
+        category = num_to_category[choice]
+        task_to_view = self.tasks[category]
+
+        if not task_to_view:
+            print(f"'{category}' is empty!")
+
+        else:
+            print(f"\nTasks in '{category}':")
+            for i, task in enumerate(task_to_view, start = 1):
+                print(f"{i}) {task}")
+
+
+        print(task_to_view)
