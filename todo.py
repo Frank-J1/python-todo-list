@@ -226,3 +226,38 @@ class TaskBoard:
 
 
         print(task_to_view)
+
+def main():
+    board = TaskBoard()
+
+    MENU = """
+    -------------------------------
+    Task Board - Main Menu
+    -------------------------------
+    1) Add Task
+    2) Remove Task
+    3) Move Task
+    4) View Tasks
+    q) Quit
+    """
+
+    print(MENU)
+    choice = input("Please enter 1/2/3/4 or 'q' to cancel").strip().lower()
+
+    while True:
+        if choice == "1": board.add_task()
+        elif choice == "2": board.remove_task()
+        elif choice == "3": board.move_task()
+        elif choice == "4": 
+            board.view_tasks()
+            input("\nPress Enter to return to the menu...") 
+        elif choice == 'q': 
+            print("Goodbye!") 
+            return
+        else: 
+            print("Please enter a valid input!") 
+
+
+
+if __name__ == "__main__":
+    main()
