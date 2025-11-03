@@ -23,7 +23,7 @@ class TaskBoard:
             print("q) Cancel Task")
 
             #Clean user input
-            choice = input("Enter 1/2/3/ or q").strip().lower()
+            choice = input("Enter 1/2/3/ or q to cancel: ").strip().lower()
 
             if choice == "q":
                 print("Addition cancelled")
@@ -56,10 +56,10 @@ class TaskBoard:
                     continue
             
             self.tasks[category].append(task)
-            print(f"Added '{task}' -> '{category}")
+            print(f"Added '{task}' -> '{category}'")
 
             #Ask the user if they want to add another task
-            again = input("Would you like to add another task? (y/n): ").lower().strip()
+            again = input("\nWhere would you like to add another task? (y/n): ").lower().strip()
             if again not in ("y", "yes"):
                 break #Go back to "add task" loop if anser is yes
 
@@ -90,7 +90,7 @@ class TaskBoard:
         while True:
 
             if not self.tasks[category]:
-                print(f"No tasks foudn in {category}.")
+                print(f"No tasks found in {category}.")
                 return
             
             print(f"\nCurrent tasks in {category}: ")
@@ -137,12 +137,13 @@ class TaskBoard:
 
             category = num_to_category[choice]
             break
+   
+        tasks_in_category = self.tasks[category]
 
         if not tasks_in_category:
             print(f"{category} is empty!")
             return
-            
-        tasks_in_category = self.tasks[category]
+        
         for i, task in enumerate(tasks_in_category, start = 1):
             print(f"{i}) {task}")
 
@@ -167,9 +168,9 @@ class TaskBoard:
             print("\n Where would you like to move the task?")
             print("1) To Do\n2) In Progress\n3)Done\nq) Cancel Move")
 
-            chocie_to = input("Enter 1/2/3 or q: ").strip.lower()
+            chocie_to = input("Enter 1/2/3 or q: ").strip().lower()
 
-            if choice == 'q':
+            if chocie_to == 'q':
                 print("Action cancelled")
                 return
             if choice not in num_to_category:
@@ -241,10 +242,10 @@ def main():
     q) Quit
     """
 
-    print(MENU)
-    choice = input("Please enter 1/2/3/4 or 'q' to cancel").strip().lower()
-
     while True:
+        print(MENU)
+        choice = input("Please enter 1/2/3/4 or 'q' to cancel").strip().lower()
+        
         if choice == "1": board.add_task()
         elif choice == "2": board.remove_task()
         elif choice == "3": board.move_task()
