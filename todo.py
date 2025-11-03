@@ -1,3 +1,7 @@
+import json
+import os
+
+
 class TaskBoard:
     #Define a String : List dictionary that will hold the tasks at different stages
     def __init__(self):
@@ -228,8 +232,23 @@ class TaskBoard:
 
         print(task_to_view)
 
+def save_to_file(self, filename = "tasks.json"):
+    with open(filename, "w") as f:
+        json.dump(self.tasks, f, indent = 4)
+    print(f"Tasks saved to {filename}")
+
+def load_from_file(self, filename = "tasks.json"):
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            self.tasks = json.load(f)
+        print(f"Loaded tasks from {filename}")
+    else:
+        print("No saved task file found. Creating a new file")
+
+
 def main():
     board = TaskBoard()
+    board.load_from_file()
 
     MENU = """
     -------------------------------
@@ -244,8 +263,8 @@ def main():
 
     while True:
         print(MENU)
-        choice = input("Please enter 1/2/3/4 or 'q' to cancel").strip().lower()
-        
+        choice = input("Please enter 1/2/3/4 or 'q' to cancel: ").strip().lower()
+
         if choice == "1": board.add_task()
         elif choice == "2": board.remove_task()
         elif choice == "3": board.move_task()
@@ -253,6 +272,7 @@ def main():
             board.view_tasks()
             input("\nPress Enter to return to the menu...") 
         elif choice == 'q': 
+            board.save_to_file()
             print("Goodbye!") 
             return
         else: 
